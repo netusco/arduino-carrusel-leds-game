@@ -15,6 +15,7 @@ const int buzzerPin = 11;
 boolean hasSound = true;
 
 int punctuation;
+int punctuationGain = 10;
 int pause;
 int lightPosition;
 
@@ -130,7 +131,7 @@ void success() {
     blinkLed(redPin, 2);
     
     // score points
-    punctuation += 10;
+    punctuation += punctuationGain;
         
     // reduce the pause
     pause -= abs(200 - (punctuation * 2));
@@ -151,7 +152,7 @@ void failure() {
     if(punctuation == 0 || failures >= numMaxFailures) {
         gameOver();
     } else {
-        punctuation -= 10;
+        punctuation -= punctuationGain;
     }
     
 }
@@ -196,8 +197,8 @@ void gameOver() {
 // display the punctuation bar
 void punctuationBar() {
  
-    // points translated to led lights are half the punctuation divided by 2
-    int ledPoints = round(punctuation/10/2);
+    // points translated to led lights are half the punctuation divided by punctuationGain
+    int ledPoints = round(punctuation/punctuationGain/2);
     
     delay(1000);
 
